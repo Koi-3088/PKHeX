@@ -25,6 +25,8 @@ namespace PKHeX.Core
         public int Species { get; private set; } = -1;
 
         /// <inheritdoc/>
+        public int Ball { get; }
+
         public int Format { get; private set; } = PKMConverter.Format;
 
         /// <inheritdoc/>
@@ -253,6 +255,9 @@ namespace PKHeX.Core
             if (Shiny)
                 result.Add("Shiny: Yes");
 
+            if ((Ball >= 0) && (Ball <= 26))
+                result.Add($"Ball: {Strings.balllist[Ball]}");
+
             if ((uint)Nature < Strings.Natures.Count)
                 result.Add($"{Strings.Natures[Nature]} Nature");
 
@@ -358,6 +363,7 @@ namespace PKHeX.Core
             Friendship = pkm.CurrentFriendship;
             Level = Experience.GetLevel(pkm.EXP, pkm.PersonalInfo.EXPGrowth);
             Shiny = pkm.IsShiny;
+            Ball = pkm.Ball;
 
             if (pkm is IGigantamax g)
                 CanGigantamax = g.CanGigantamax;
