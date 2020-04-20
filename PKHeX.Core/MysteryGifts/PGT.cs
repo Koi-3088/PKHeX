@@ -57,19 +57,10 @@ namespace PKHeX.Core
 
         public PK4 PK
         {
-            get
-            {
-                if (_pk != null)
-                    return _pk;
-                byte[] ekdata = new byte[PokeCrypto.SIZE_4PARTY];
-                Array.Copy(Data, 8, ekdata, 0, ekdata.Length);
-                return _pk = new PK4(ekdata);
-            }
+            get => _pk ??= new PK4(Data.Slice(8, PokeCrypto.SIZE_4PARTY));
             set
             {
-                if ((_pk = value) == null)
-                    return;
-
+                _pk = value;
                 var pkdata = value.Data.All(z => z == 0)
                     ? value.Data
                     : PokeCrypto.EncryptArray45(value.Data);

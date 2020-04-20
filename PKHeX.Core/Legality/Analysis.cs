@@ -343,7 +343,7 @@ namespace PKHeX.Core
         {
             if (Valid)
                 return L_ALegal;
-            if (!Parsed || Info == null)
+            if (!Parsed)
                 return L_AnalysisUnavailable;
 
             var lines = new List<string>();
@@ -373,7 +373,7 @@ namespace PKHeX.Core
 
         private string GetVerboseLegalityReport()
         {
-            if (!Parsed || Info == null)
+            if (!Parsed)
                 return L_AnalysisUnavailable;
 
             const string separator = "===";
@@ -422,7 +422,6 @@ namespace PKHeX.Core
                 Info.PIDIV = MethodFinder.Analyze(pkm);
 
             var pidiv = Info.PIDIV;
-            if (pidiv != null)
             {
                 if (!pidiv.NoSeed)
                     lines.Add(string.Format(L_FOriginSeed_0, pidiv.OriginSeed.ToString("X8")));
